@@ -1,4 +1,4 @@
-Year	Director	Movie	Country
+Year	Director	Movie	Countries
 1946	René Clément	The Battle of the Rails	France
 1949	René Clément	The Walls of Malapaga	France
 1951	Luis Buñuel	The Young and the Damned	Mexico
@@ -29,7 +29,7 @@ Year	Director	Movie	Country
 1985	André Téchiné	Rendez-vous	France
 1986	Martin Scorsese	After Hours	United States
 1987	Wim Wenders	Wings of Desire	West Germany
-1988	Fernando Solanas	South	Sur	Argentina
+1988    Fernando Solanas	Sur Argentina
 1989	Emir Kusturica	Time of the Gypsies	Yugoslavia
 1990	Pavel Lungin	Taxi Blues	Soviet Union
 1991	Joel Coen	Barton Fink	United States

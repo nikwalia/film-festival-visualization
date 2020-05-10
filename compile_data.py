@@ -18,5 +18,5 @@ def find_year_data(year):
 
 
 if __name__ == "__main__":
-    dat = find_year_data(2001)
+    dat = find_year_data(1980)
     print(dat)

@@ -6,7 +6,9 @@ def find_year_data(year):
     all_files = os.listdir('data')
     year_data = {}
     for file in all_files:
-        df = pd.read_csv('data/' + file, delimiter='\t', index_col=None)
+        if file == 'country_geocodes.csv':
+            continue
+        df = pd.read_csv('data/' + file, index_col=None)
         festival_name = file.split('_')[0]
         award_category = file.split('_')[2].split('.')[0]
         matches = df[df['Year'] == year]
@@ -17,6 +19,7 @@ def find_year_data(year):
     return year_data
 
 
+# test code
 if __name__ == "__main__":
     dat = find_year_data(1980)
     print(dat)

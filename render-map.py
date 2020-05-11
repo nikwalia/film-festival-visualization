@@ -26,13 +26,16 @@ def plot_data(festival):
     # Read csv file using pandas
     df1 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
 
-    datafile2 = './data/' + festival + '_best_actress.tsv'
+    datafile2 = './data/' + festival + '_best_actress.csv'
     df2 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
 
-    datafile3 = './data/' + festival + '_best_director.tsv'
+    datafile3 = './data/' + festival + '_best_director.csv'
     df3 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
 
-    frames = [df1, df2, df3]
+    datafile4 = './data/' + festival + '_best_film.csv'
+    df4 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
+
+    frames = [df1, df2, df3, df4]
     result = pd.concat(frames)
 
     countryfile = './data/country_geocodes.csv'

@@ -1,7 +1,7 @@
 from bokeh.io import show, output_file, curdoc
 from bokeh.plotting import figure
 from bokeh.layouts import widgetbox, column, row
-from bokeh.models import GeoJSONDataSource, ColumnDataSource
+from bokeh.models import GeoJSONDataSource
 from bokeh.models import HoverTool, Slider
 from bokeh.palettes import Viridis6 as palette
 from bokeh.models import LogColorMapper
@@ -9,7 +9,7 @@ from bokeh.models import LogColorMapper
 import render_map
 import json
 
-start_year = 1935
+start_year = 1932
 end_year = 2019
 year = start_year
 

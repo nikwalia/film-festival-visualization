@@ -1,20 +1,13 @@
-# Citations: https://towardsdatascience.com/a-complete-guide-to-an-interactive-geographical-map-using-python-f4c5197e23e0
-
 import geopandas as gpd
-import json
 import pandas as pd
 import numpy as np
-import bokeh
-from bokeh.io import output_notebook, show, output_file
-from bokeh.plotting import figure
-from bokeh.models import GeoJSONDataSource, ColumnDataSource
-from bokeh.models import HoverTool
-from bokeh.models import LogColorMapper
-from bokeh.palettes import Viridis6 as palette
-import math
 
-global shapefile
 shapefile = 'ne_110m_admin_0_countries.shp'
+
+"""
+Finds all the data for a given year, along with country shapes
+@:param year: the year for which to get the awards
+"""
 
 
 def get_data(year):
@@ -24,7 +17,7 @@ def get_data(year):
     # Rename columns
     gdf.columns = ['country', 'country_code', 'geometry']
 
-    ## ACTOR AWARDS
+    # ACTOR AWARDS
     datafile1berlin = './data/berlin_best_actor.csv'
     # Read csv file using pandas
     df1berlin = pd.read_csv(datafile1berlin, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
@@ -42,7 +35,7 @@ def get_data(year):
 
     df1 = df1berlin.append(df1cannes, sort=False).append(df1venice, sort=False)
 
-    ## ACTRESS AWARDS
+    # ACTRESS AWARDS
     datafile2berlin = './data/berlin_best_actress.csv'
     # Read csv file using pandas
     df2berlin = pd.read_csv(datafile2berlin, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
@@ -60,7 +53,7 @@ def get_data(year):
 
     df2 = df2berlin.append(df2cannes, sort=False).append(df2venice, sort=False)
 
-    ## DIRECTOR AWARDS
+    # DIRECTOR AWARDS
     datafile3berlin = './data/berlin_best_director.csv'
     # Read csv file using pandas
     df3berlin = pd.read_csv(datafile3berlin, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
@@ -78,7 +71,7 @@ def get_data(year):
 
     df3 = df3berlin.append(df3cannes, sort=False).append(df3venice, sort=False)
 
-    ## FILM AWARDS
+    # FILM AWARDS
     datafile4berlin = './data/berlin_best_film.csv'
     # Read csv file using pandas
     df4berlin = pd.read_csv(datafile4berlin, sep=',', names=['Year', 'Movie', 'Countries'], skiprows=1)
@@ -101,14 +94,7 @@ def get_data(year):
 
     countryfile = './data/country_geocodes.csv'
     cf = pd.read_csv(countryfile, sep=',', names=['Countries', 'Latitude', 'Longitude'], skiprows=1)
-    # print(result)
-    # print(cf)
     points = pd.merge(result, cf, on="Countries")
-    # print(points)
-
-    pointsource = ColumnDataSource(points)
-
-    color_mapper = LogColorMapper(palette=palette)
 
     counts = dict((country, 0) for country in gdf['country'])
     actors = dict((country, []) for country in gdf['country'])
@@ -139,39 +125,3 @@ def get_data(year):
     gdf['movies'] = [', '.join(movie_names) for movie_names in movies.values()]
 
     return gdf
-    # Read data to json.
-    # gdf_json = json.loads(gdf.to_json())
-    # # Convert to String like object.
-    # grid = json.dumps(gdf_json)
-    #
-    # geosource = GeoJSONDataSource(geojson=grid)
-    #
-    # # original color: '#fff7bc'
-    # # Create figure object.
-    # p = figure(title='Worldwide Film Festival Awards', plot_height=600, plot_width=1050)
-    # p.xgrid.grid_line_color = None
-    # p.ygrid.grid_line_color = None
-    # # Add patch renderer to figure.
-    # patch = p.patches('xs', 'ys', source=geosource, fill_color={'field': 'counts', 'transform': color_mapper},
-    #                   line_color='black', line_width=0.35, fill_alpha=1,
-    #                   hover_fill_color="#fec44f")
-    #
-    # p.add_tools(HoverTool(tooltips=[(
-    #     'Country', '@country'),
-    #     ('Actor', '@actors'),
-    #     ('Actress', '@actresses'),
-    #     ('Director', '@directors'),
-    #     ('Movie', '@movies'),
-    #     ('Total', '@counts')
-    # ], renderers=[patch]))
-    #
-    # # show(p)
-    # return p
-
-
-if __name__ == "__main__":
-    # output_file("film-festivals.html")
-    # filters_list = [("Festival", "festival")]
-    # filter_dropdown = Dropdown(label="Filter By", button_type="primary", menu=filters_list)
-    # show(filter_dropdown)
-    get_data(2018)

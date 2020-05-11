@@ -26,20 +26,21 @@ def plot_data(festival):
     # Read csv file using pandas
     df1 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
 
-    datafile2 = './data/' + festival + 'best_actress.tsv'
+    datafile2 = './data/' + festival + '_best_actress.tsv'
     df2 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
 
-    datafile3 = './data/' + festival + 'best_director.tsv'
+    datafile3 = './data/' + festival + '_best_director.tsv'
     df3 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
 
     frames = [df1, df2, df3]
     result = pd.concat(frames)
 
     countryfile = './data/country_geocodes.csv'
-    cf = pd.read_csv(countryfile, sep=',', names=['Country', 'Latitude', 'Longitude'], skiprows=1)
+    cf = pd.read_csv(countryfile, sep=',', names=['Countries', 'Latitude', 'Longitude'], skiprows=1)
     print (result)
     print (cf)
-    points = pd.merge(result, cf, left_on='Year', right_on='Country', how='left')
+    points = pd.merge(result, cf, on="Countries")
+    print (points)
 
     geosource = GeoJSONDataSource(geojson=grid)
     pointsource = ColumnDataSource(points)

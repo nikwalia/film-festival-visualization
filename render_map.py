@@ -44,10 +44,10 @@ def plot_data(festival, year):
 
     countryfile = './data/country_geocodes.csv'
     cf = pd.read_csv(countryfile, sep=',', names=['Countries', 'Latitude', 'Longitude'], skiprows=1)
-    print (result)
-    print (cf)
+    # print (result)
+    # print (cf)
     points = pd.merge(result, cf, on="Countries")
-    print (points)
+    # print (points)
 
     geosource = GeoJSONDataSource(geojson=grid)
     pointsource = ColumnDataSource(points)
@@ -64,7 +64,8 @@ def plot_data(festival, year):
     p.add_tools(HoverTool(tooltips=[('Year', '@Year'), ('Best Actor', '@Actor'), ('Best Actress', '@Actress'),
                                     ('Best Director', '@Director'), ('Country', '@Country')], renderers=[patch]))
 
-    show(p)
+    # show(p)
+    return p
 
 if __name__ == "__main__":
     # output_file("film-festivals.html")

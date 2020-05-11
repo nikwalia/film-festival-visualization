@@ -8,7 +8,7 @@ import bokeh
 from bokeh.io import output_notebook, show, output_file
 from bokeh.plotting import figure
 from bokeh.models import GeoJSONDataSource, ColumnDataSource
-from bokeh.models import HoverTool, Dropdown
+from bokeh.models import HoverTool
 from bokeh.models import LogColorMapper
 from bokeh.palettes import Viridis6 as palette
 import math
@@ -17,10 +17,10 @@ global shapefile
 shapefile = 'ne_110m_admin_0_countries.shp'
 
 
-def plot_data(year):
+def get_data(year):
     global shapefile
     gdf = gpd.read_file(shapefile)[['ADMIN', 'ADM0_A3', 'geometry']]
-    print("In plot_data")
+    # print("In plot_data")
     # Rename columns
     gdf.columns = ['country', 'country_code', 'geometry']
 
@@ -138,34 +138,35 @@ def plot_data(year):
     gdf['directors'] = [', '.join(director_names) for director_names in directors.values()]
     gdf['movies'] = [', '.join(movie_names) for movie_names in movies.values()]
 
+    return gdf
     # Read data to json.
-    gdf_json = json.loads(gdf.to_json())
-    # Convert to String like object.
-    grid = json.dumps(gdf_json)
-
-    geosource = GeoJSONDataSource(geojson=grid)
-
-    # original color: '#fff7bc'
-    # Create figure object.
-    p = figure(title='Worldwide Film Festival Awards', plot_height=600, plot_width=1050)
-    p.xgrid.grid_line_color = None
-    p.ygrid.grid_line_color = None
-    # Add patch renderer to figure.
-    patch = p.patches('xs', 'ys', source=geosource, fill_color={'field': 'counts', 'transform': color_mapper},
-                      line_color='black', line_width=0.35, fill_alpha=1,
-                      hover_fill_color="#fec44f")
-
-    p.add_tools(HoverTool(tooltips=[(
-        'Country', '@country'),
-        ('Actor', '@actors'),
-        ('Actress', '@actresses'),
-        ('Director', '@directors'),
-        ('Movie', '@movies'),
-        ('Total', '@counts')
-    ], renderers=[patch]))
-
-    # show(p)
-    return p
+    # gdf_json = json.loads(gdf.to_json())
+    # # Convert to String like object.
+    # grid = json.dumps(gdf_json)
+    #
+    # geosource = GeoJSONDataSource(geojson=grid)
+    #
+    # # original color: '#fff7bc'
+    # # Create figure object.
+    # p = figure(title='Worldwide Film Festival Awards', plot_height=600, plot_width=1050)
+    # p.xgrid.grid_line_color = None
+    # p.ygrid.grid_line_color = None
+    # # Add patch renderer to figure.
+    # patch = p.patches('xs', 'ys', source=geosource, fill_color={'field': 'counts', 'transform': color_mapper},
+    #                   line_color='black', line_width=0.35, fill_alpha=1,
+    #                   hover_fill_color="#fec44f")
+    #
+    # p.add_tools(HoverTool(tooltips=[(
+    #     'Country', '@country'),
+    #     ('Actor', '@actors'),
+    #     ('Actress', '@actresses'),
+    #     ('Director', '@directors'),
+    #     ('Movie', '@movies'),
+    #     ('Total', '@counts')
+    # ], renderers=[patch]))
+    #
+    # # show(p)
+    # return p
 
 
 if __name__ == "__main__":
@@ -173,4 +174,4 @@ if __name__ == "__main__":
     # filters_list = [("Festival", "festival")]
     # filter_dropdown = Dropdown(label="Filter By", button_type="primary", menu=filters_list)
     # show(filter_dropdown)
-    plot_data(2018)
+    get_data(2018)

@@ -23,4 +23,4 @@ def find_year_data(year):
 if __name__ == "__main__":
     dat = find_year_data(1980)
     df = pd.DataFrame.from_dict(dat)
-    print(df[0])
+    # print(df[0])

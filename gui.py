@@ -4,12 +4,19 @@ from bokeh.models import Slider, Dropdown
 from bokeh.layouts import widgetbox, column, row
 import render_map
 
+global start_year
+global end_year
+global festival
+global year
+global world_map
+
 start_year = 1932
 end_year = 2019
 festival = "Cannes"
 year = start_year
 world_map = None
 def dropdown_handler(attr, old, new):
+    print ("Dropdown: ", old, " to ", new)
     global festival
     festival = new
     global world_map
@@ -27,7 +34,7 @@ slider.on_change("value", year_handler)
 # show(slider)
 
 festival_list = [("Cannes", "cannes"), ("Berlin", "berlin"), ("Venice", "venice")]
-festival_dropdown = Dropdown(label=festival, button_type="primary", menu=festival_list)
+festival_dropdown = Dropdown(label="Festival", button_type="primary", menu=festival_list)
 festival_dropdown.on_change("value", dropdown_handler)
 # show(festival_dropdown)
 world_map = render_map.plot_data(festival.lower(), year)

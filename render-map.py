@@ -7,7 +7,7 @@ import numpy as np
 from bokeh.io import output_notebook, show, output_file
 from bokeh.plotting import figure
 from bokeh.models import GeoJSONDataSource, ColumnDataSource
-from bokeh.models import HoverTool
+from bokeh.models import HoverTool, Dropdown
 
 shapefile = 'ne_110m_admin_0_countries.shp'
 
@@ -22,21 +22,23 @@ def plot_data(festival):
     # Convert to String like object.
     grid = json.dumps(gdf_json)
 
-    datafile1 = './data/' + festival + 'best_actor.tsv'
+    datafile1 = './data/' + festival + '_best_actor.csv'
     # Read csv file using pandas
-    df1 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
 
     datafile2 = './data/' + festival + 'best_actress.tsv'
-    df2 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Actress', 'Countries'], skiprows=1)
+    df2 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
 
     datafile3 = './data/' + festival + 'best_director.tsv'
-    df3 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Director', 'Countries'], skiprows=1)
+    df3 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
 
     frames = [df1, df2, df3]
     result = pd.concat(frames)
 
     countryfile = './data/country_geocodes.csv'
-    cf = pd.read_csv(countryfile, names=['Country', 'Latitude', 'Longitude'], skiprows=1)
+    cf = pd.read_csv(countryfile, sep=',', names=['Country', 'Latitude', 'Longitude'], skiprows=1)
+    print (result)
+    print (cf)
     points = pd.merge(result, cf, left_on='Year', right_on='Country', how='left')
 
     geosource = GeoJSONDataSource(geojson=grid)
@@ -55,3 +57,10 @@ def plot_data(festival):
                                     ('Best Director', '@Director'), ('Country', '@Country')], renderers=[patch]))
 
     show(p)
+
+if __name__ == "__main__":
+    # output_file("film-festivals.html")
+    # filters_list = [("Festival", "festival")]
+    # filter_dropdown = Dropdown(label="Filter By", button_type="primary", menu=filters_list)
+    # show(filter_dropdown)
+    plot_data("cannes")

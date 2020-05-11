@@ -14,7 +14,8 @@ An interactive map that shows the recipients of best actor/actress, director, an
       bokeh serve --show gui.py
 - Use the slider to see the heatmap change over the years
 - Hover over countries on the map to see how many and which awards were given to that country for the year selected.
-            - Awards that were given to countries that no longer exist are mapped to their modern day geographic counterparts.
+      
+      - Awards that were given to countries that no longer exist are mapped to their modern day geographic counterparts.
 
 ## Resources
 - https://towardsdatascience.com/a-complete-guide-to-an-interactive-geographical-map-using-python-f4c5197e23e0

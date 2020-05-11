@@ -1,7 +1,7 @@
 # Film Festival Visualization
 An interactive map that shows the recipients of best actor/actress, director, and film in the Berlin, Cannes, and Venice film festivals over the past ~90 years.
 
-![image info](demo_image.png)
+![image info](demo-image.png)
 
 ## Python Dependencies
 - Geopandas

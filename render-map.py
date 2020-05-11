@@ -22,15 +22,15 @@ def plot_data(festival):
     # Convert to String like object.
     grid = json.dumps(gdf_json)
 
-    datafile1 = './data/' + festival + 'best_actor.tsv'
+    datafile1 = './data/' + festival + '_best_actor.csv'
     # Read csv file using pandas
-    df1 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1 = pd.read_csv(datafile1, names=['Year', 'Actor', 'Countries'], skiprows=1)
 
-    datafile2 = './data/' + festival + 'best_actress.tsv'
-    df2 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Actress', 'Countries'], skiprows=1)
+    datafile2 = './data/' + festival + '_best_actress.csv'
+    df2 = pd.read_csv(datafile1, names=['Year', 'Actress', 'Countries'], skiprows=1)
 
-    datafile3 = './data/' + festival + 'best_director.tsv'
-    df3 = pd.read_csv(datafile1, sep='\t', names=['Year', 'Director', 'Countries'], skiprows=1)
+    datafile3 = './data/' + festival + '_best_director.csv'
+    df3 = pd.read_csv(datafile1, names=['Year', 'Director', 'Countries'], skiprows=1)
 
     frames = [df1, df2, df3]
     result = pd.concat(frames)

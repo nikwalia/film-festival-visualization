@@ -32,12 +32,12 @@ def plot_data(festival, year):
 
     datafile1cannes = './data/cannes_best_actor.csv'
     # Read csv file using pandas
-    df1cannes = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1cannes = pd.read_csv(datafile1cannes, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
     df1cannes = df1cannes.loc[df1cannes['Year'] == year]
 
     datafile1venice = './data/venice_best_actor.csv'
     # Read csv file using pandas
-    df1venice = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1venice = pd.read_csv(datafile1venice, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
     df1venice = df1venice.loc[df1venice['Year'] == year]
 
     df1 = df1berlin.append(df1cannes, sort=False).append(df1venice, sort=False)

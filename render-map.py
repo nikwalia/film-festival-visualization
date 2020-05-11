@@ -43,10 +43,11 @@ def plot_data(festival, year):
     result = pd.concat(frames)
 
     countryfile = './data/country_geocodes.csv'
-    cf = pd.read_csv(countryfile, sep=',', names=['Country', 'Latitude', 'Longitude'], skiprows=1)
+    cf = pd.read_csv(countryfile, sep=',', names=['Countries', 'Latitude', 'Longitude'], skiprows=1)
     print (result)
     print (cf)
-    points = pd.merge(result, cf, left_on='Year', right_on='Country', how='left')
+    points = pd.merge(result, cf, on="Countries")
+    print (points)
 
     geosource = GeoJSONDataSource(geojson=grid)
     pointsource = ColumnDataSource(points)

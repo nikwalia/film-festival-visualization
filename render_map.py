@@ -24,22 +24,77 @@ def plot_data(festival, year):
     # Rename columns
     gdf.columns = ['country', 'country_code', 'geometry']
 
-    datafile1 = './data/' + festival + '_best_actor.csv'
+    ## ACTOR AWARDS
+    datafile1berlin = './data/berlin_best_actor.csv'
     # Read csv file using pandas
-    df1 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
-    df1 = df1.loc[df1['Year'] == year]
+    df1berlin = pd.read_csv(datafile1berlin, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1berlin = df1berlin.loc[df1berlin['Year'] == year]
 
-    datafile2 = './data/' + festival + '_best_actress.csv'
-    df2 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
-    df2 = df2.loc[df2['Year'] == year]
+    datafile1cannes = './data/cannes_best_actor.csv'
+    # Read csv file using pandas
+    df1cannes = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1cannes = df1cannes.loc[df1cannes['Year'] == year]
 
-    datafile3 = './data/' + festival + '_best_director.csv'
-    df3 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
-    df3 = df3.loc[df3['Year'] == year]
+    datafile1venice = './data/venice_best_actor.csv'
+    # Read csv file using pandas
+    df1venice = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1venice = df1venice.loc[df1venice['Year'] == year]
 
-    datafile4 = './data/' + festival + '_best_film.csv'
-    df4 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
-    df4 = df4.loc[df4['Year'] == year]
+    df1 = df1berlin.append(df1cannes, sort=False).append(df1venice, sort=False)
+
+    ## ACTRESS AWARDS
+    datafile2berlin = './data/berlin_best_actress.csv'
+    # Read csv file using pandas
+    df2berlin = pd.read_csv(datafile2berlin, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df2berlin = df2berlin.loc[df2berlin['Year'] == year]
+
+    datafile2cannes = './data/cannes_best_actress.csv'
+    # Read csv file using pandas
+    df2cannes = pd.read_csv(datafile2cannes, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df2cannes = df2cannes.loc[df2cannes['Year'] == year]
+
+    datafile2venice = './data/venice_best_actress.csv'
+    # Read csv file using pandas
+    df2venice = pd.read_csv(datafile2venice, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df2venice = df2venice.loc[df2venice['Year'] == year]
+
+    df2 = df2berlin.append(df2cannes, sort=False).append(df2venice, sort=False)
+
+    ## DIRECTOR AWARDS
+    datafile3berlin = './data/berlin_best_director.csv'
+    # Read csv file using pandas
+    df3berlin = pd.read_csv(datafile3berlin, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df3berlin = df3berlin.loc[df3berlin['Year'] == year]
+
+    datafile3cannes = './data/cannes_best_director.csv'
+    # Read csv file using pandas
+    df3cannes = pd.read_csv(datafile3cannes, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df3cannes = df3cannes.loc[df3cannes['Year'] == year]
+
+    datafile3venice = './data/venice_best_director.csv'
+    # Read csv file using pandas
+    df3venice = pd.read_csv(datafile3venice, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df3venice = df3venice.loc[df3venice['Year'] == year]
+
+    df3 = df3berlin.append(df3cannes, sort=False).append(df3venice, sort=False)
+
+    ## FILM AWARDS
+    datafile4berlin = './data/berlin_best_film.csv'
+    # Read csv file using pandas
+    df4berlin = pd.read_csv(datafile4berlin, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df4berlin = df4berlin.loc[df4berlin['Year'] == year]
+
+    datafile4cannes = './data/cannes_best_film.csv'
+    # Read csv file using pandas
+    df4cannes = pd.read_csv(datafile4cannes, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df4cannes = df4cannes.loc[df4cannes['Year'] == year]
+
+    datafile4venice = './data/venice_best_film.csv'
+    # Read csv file using pandas
+    df4venice = pd.read_csv(datafile4venice, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df4venice = df4venice.loc[df4venice['Year'] == year]
+
+    df4 = df4berlin.append(df4cannes, sort=False).append(df4venice, sort=False)
 
     frames = [df1, df2, df3, df4]
     result = pd.concat(frames)

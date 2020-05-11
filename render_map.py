@@ -13,11 +13,14 @@ from bokeh.models import LogColorMapper
 from bokeh.palettes import Viridis6 as palette
 import math
 
+global shapefile
 shapefile = 'ne_110m_admin_0_countries.shp'
 
 
 def plot_data(year):
+    global shapefile
     gdf = gpd.read_file(shapefile)[['ADMIN', 'ADM0_A3', 'geometry']]
+    print("In plot_data")
     # Rename columns
     gdf.columns = ['country', 'country_code', 'geometry']
 
@@ -98,10 +101,10 @@ def plot_data(year):
 
     countryfile = './data/country_geocodes.csv'
     cf = pd.read_csv(countryfile, sep=',', names=['Countries', 'Latitude', 'Longitude'], skiprows=1)
-    print(result)
-    print(cf)
+    # print(result)
+    # print(cf)
     points = pd.merge(result, cf, on="Countries")
-    print(points)
+    # print(points)
 
     pointsource = ColumnDataSource(points)
 
@@ -161,7 +164,7 @@ def plot_data(year):
         ('Total', '@counts')
     ], renderers=[patch]))
 
-    show(p)
+    # show(p)
     return p
 
 

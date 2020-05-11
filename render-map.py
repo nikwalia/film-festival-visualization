@@ -12,7 +12,7 @@ from bokeh.models import HoverTool, Dropdown
 shapefile = 'ne_110m_admin_0_countries.shp'
 
 
-def plot_data(festival):
+def plot_data(festival, year):
     gdf = gpd.read_file(shapefile)[['ADMIN', 'ADM0_A3', 'geometry']]
     # Rename columns
     gdf.columns = ['country', 'country_code', 'geometry']
@@ -25,15 +25,19 @@ def plot_data(festival):
     datafile1 = './data/' + festival + '_best_actor.csv'
     # Read csv file using pandas
     df1 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actor', 'Countries'], skiprows=1)
+    df1 = df1.loc[df1['Year'] == year]
 
     datafile2 = './data/' + festival + '_best_actress.csv'
     df2 = pd.read_csv(datafile1, sep=',', names=['Year', 'Actress', 'Countries'], skiprows=1)
+    df2 = df2.loc[df2['Year'] == year]
 
     datafile3 = './data/' + festival + '_best_director.csv'
     df3 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
+    df3 = df3.loc[df3['Year'] == year]
 
     datafile4 = './data/' + festival + '_best_film.csv'
     df4 = pd.read_csv(datafile1, sep=',', names=['Year', 'Director', 'Countries'], skiprows=1)
+    df4 = df4.loc[df4['Year'] == year]
 
     frames = [df1, df2, df3, df4]
     result = pd.concat(frames)

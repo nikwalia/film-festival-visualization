@@ -6,7 +6,7 @@ from bokeh.models import HoverTool, Slider
 from bokeh.palettes import Viridis6 as palette
 from bokeh.models import LogColorMapper
 
-import render_map
+import map_data
 import json
 
 start_year = 1932
@@ -14,7 +14,7 @@ end_year = 2019
 year = start_year
 
 # setup initial data
-init_dat = render_map.get_data(year)
+init_dat = map_data.get_data(year)
 # Read data to json.
 gdf_json = json.loads(init_dat.to_json())
 # Convert to String like object.
@@ -46,7 +46,7 @@ world_map.add_tools(HoverTool(tooltips=[(
 def year_handler(attr, old, new):
     global year
     year = new
-    gdf_json = json.loads(render_map.get_data(year).to_json())
+    gdf_json = json.loads(map_data.get_data(year).to_json())
     # Convert to String like object.
     grid = json.dumps(gdf_json)
     # global geosource

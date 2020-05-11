@@ -109,14 +109,16 @@ def get_data(year):
             counts[country] += 1
 
     for index, row in year_match.iterrows():
-        if not np.isreal(row['Actor']):
-            actors[row['Countries']].append(row['Actor'])
-        if not np.isreal(row['Actress']):
-            actresses[row['Countries']].append(row['Actress'])
-        if not np.isreal(row['Director']):
-            directors[row['Countries']].append(row['Director'])
-        if not np.isreal(row['Movie']):
-            movies[row['Countries']].append(row['Movie'])
+        countries = row['Countries'].split('|')
+        for country in countries:
+            if not np.isreal(row['Actor']):
+                actors[country].append(row['Actor'])
+            if not np.isreal(row['Actress']):
+                actresses[country].append(row['Actress'])
+            if not np.isreal(row['Director']):
+                directors[country].append(row['Director'])
+            if not np.isreal(row['Movie']):
+                movies[country].append(row['Movie'])
 
     gdf['counts'] = counts.values()
     gdf['actors'] = [', '.join(actor_names) for actor_names in actors.values()]
@@ -125,3 +127,7 @@ def get_data(year):
     gdf['movies'] = [', '.join(movie_names) for movie_names in movies.values()]
 
     return gdf
+
+
+if __name__ == '__main__':
+    print(get_data(1932))
